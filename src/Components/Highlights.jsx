@@ -1,0 +1,74 @@
+import React from "react";
+import HighCard from "./HighCard";
+import { FaTruck } from "react-icons/fa";
+import { RiHandCoinFill } from "react-icons/ri";
+import { GrServices } from "react-icons/gr";
+import { IoMdHelpCircle } from "react-icons/io";
+
+function Highlights() {
+  return (
+    <div className="px-24 flex flex-col justify-center items-center pb-20 highlights">
+      <h2 className="text-[#151875] text-3xl font-bold mb-[20px]">
+        Latest Products
+      </h2>
+      <ul className="flex w-[420px] h-[25px] justify-between">
+        <li>New Arrival</li>
+        <li>Best Seller</li>
+        <li>Featured</li>
+        <li>Special Offer</li>
+      </ul>
+
+      <div className="py-[60px] flex justify-center flex-wrap gap-10">
+        <HighCard />
+        <HighCard />
+        <HighCard />
+        <HighCard />
+        <HighCard />
+        <HighCard />
+      </div>
+      <div>
+        <h2 className="text-[#151875] text-3xl font-bold mb-[40px] text-center">
+          What Shopex Offer!
+        </h2>
+
+        <div className="flex justify-center gap-5">
+
+          <div className="h-[270px] px-5 w-[250px] flex flex-col justify-center items-center shadow-lg">
+            <FaTruck className="text-4xl" />
+            <h2 className="text-[20px] #151875 py-3">24/7 Support</h2>
+            <p className="text-center text-[14px] text-slate-400">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa
+              purus gravida.
+            </p>
+          </div>
+          <div className="h-[270px] px-5 w-[250px] flex flex-col justify-center items-center shadow-lg">
+            <RiHandCoinFill className="text-4xl" />
+            <h2 className="text-[20px] #151875 py-3">24/7 Support</h2>
+            <p className="text-center text-[14px] text-slate-400">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa
+              purus gravida.
+            </p>
+          </div>
+          <div className="h-[270px] px-5 w-[250px] flex flex-col justify-center items-center shadow-lg">
+            <GrServices className="text-4xl" />
+            <h2 className="text-[20px] #151875 py-3">24/7 Support</h2>
+            <p className="text-center text-[14px] text-slate-400">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa
+              purus gravida.
+            </p>
+          </div>
+          <div className="h-[270px] px-5 w-[250px] flex flex-col justify-center items-center shadow-lg">
+            <IoMdHelpCircle className="text-4xl" />
+            <h2 className="text-[20px] #151875 py-3">24/7 Support</h2>
+            <p className="text-center text-[14px] text-slate-400">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Massa
+              purus gravida.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Highlights;
