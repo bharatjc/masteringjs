@@ -4,7 +4,7 @@ import Card from './Card'
 function Products() {
   return (
     <>
-    <div className='pt-[100px] pb-10 flex justify-center flex-wrap gap-5 container'>
+    <div className='pt-[80px] pb-10 flex justify-center flex-wrap gap-5 container'>
       <Card/>
       <Card/>
       <Card/>

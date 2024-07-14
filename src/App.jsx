@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Home from "./Home";
-import Login from "./Components/Login";
+import Home from "./Pages/Home";
+import Login from "./Pages/Login";
 import {
   createBrowserRouter,
   RouterProvider,

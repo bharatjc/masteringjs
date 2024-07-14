@@ -15,7 +15,7 @@ function Navbar() {
 
   return (
     <header>
-      <div className="relative bg-[#7E33E0]">
+      <div className="z-20 relative bg-[#7E33E0]">
         <nav className="py-3 text-white flex justify-between container mx-auto">
           <div className="flex flex-col md:flex-row">
             <div className="flex items-center">
@@ -33,7 +33,7 @@ function Navbar() {
               <li>USD</li>
               
               <li className="flex items-center">
-              <Link to= "/login">Login</Link>  <TbUser className="text-lg ml-1" />
+              <Link to= "/login">Login</Link><TbUser className="text-lg ml-1" />
               </li>
               <li className="flex items-center">
                 Wishlist <FaRegHeart className="ml-1" />
@@ -76,8 +76,8 @@ function Navbar() {
       <div className="bg-white">
         <nav className="flex py-4 justify-between container mx-auto">
           <div className="flex">
-            <div className="w-[95px] text-2xl font-semibold mr-8 flex items-center">
-              Hekto{" "}
+            <div className="w-[95px] text-2xl text-[#0D0E43] font-bold mr-8 flex items-center">
+            <Link to="/">Hekto</Link>
               <button onClick={() => setNavItems(!navItems)}>
                 <GiHamburgerMenu className="md:hidden text-lg ml-1" />
               </button>
@@ -94,7 +94,7 @@ function Navbar() {
             </div>
             <div className="md:hidden">
               {navItems && (
-                <div className="absolute w-2/5 h-[100vh] bg-slate-100 text-black top-[72px] left-0 shadow-lg">
+                <div className="z-50 absolute w-2/5 h-[100vh] bg-slate-100 text-black top-[72px] left-0 shadow-lg">
                    <ul className="p-4 space-y-4">
                 <li className="flex justify-between"><p>Home</p> <button onClick={() => setNavItems(false)}>
                 <IoClose /></button></li>
@@ -110,7 +110,7 @@ function Navbar() {
           </div>
 
           <div className="w-[300px] h-[30px] flex justify-end">
-            <div className="flex items-center border-2 border-[#7E33E0]">
+            <div className="flex items-center border-2 border-[#C2C5E1]">
               <input className="h-5 w-[170px]" type="text" />
               <div className="bg-[#FB2E86] w-9 h-7 flex justify-center items-center">
                 <IoSearchOutline className="text-xl text-white" />
@@ -119,6 +119,8 @@ function Navbar() {
           </div>
         </nav>
       </div>
+
+      
     </header>
   );
 }

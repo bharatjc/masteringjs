@@ -12,7 +12,7 @@ function Hero() {
     slidesToScroll: 1,
   };
   return (
-    <Slider {...settings} className="no-scrollbar">
+    <Slider {...settings} className="z-10 no-scrollbar">
       <div className="w-full pb-20  md:h-[calc(100vh-120px)] bg-[#F2F0FF] flex hero">
       <div className="flex container">
         <div className="ml-[-11vw] h-[250px] w-[150px] md:w-[300px] bg-cover">
