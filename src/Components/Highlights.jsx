@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import HighCard from "./HighCard";
 import { FaTruck } from "react-icons/fa";
 import { RiHandCoinFill } from "react-icons/ri";
 import { GrServices } from "react-icons/gr";
 import { IoMdHelpCircle } from "react-icons/io";
 
-function Highlights() {
+function Highlights({progress, setProgress}) {
+
+  const [latest, setLatest] = useState([])
+
+  useEffect(()=>{
+    setProgress(true)
+   axios.get(`https://ecommerce-sagartmg2.vercel.app/api/products?per_page=6`).then((response)=>{
+    setLatest(response.data.products)
+    setProgress(false)
+   }).catch(err=>{
+    console.log("Eror", err)
+   })
+  },[setProgress])
+
   return (
     <div className="flex flex-col justify-center items-center container">
       <h2 className="text-[#151875] text-3xl font-bold mb-[20px]">
@@ -18,12 +32,11 @@ function Highlights() {
         <li>Special Offer</li>
       </ul>
       <div className="py-[60px] flex justify-center flex-wrap gap-10">
-        <HighCard />
-        <HighCard />
-        <HighCard />
-        <HighCard />
-        <HighCard />
-        <HighCard />
+       {
+        latest.map((item, index)=>{
+          return <HighCard key={index} name={item.name} image={item.image} price={item.price} progress={progress}/>
+        })
+       }
       </div>
       <h2 className="text-[#151875] text-3xl font-bold mb-[40px] text-center">
         What Shopex Offer!

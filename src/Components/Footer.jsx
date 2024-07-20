@@ -20,7 +20,7 @@ function Footer() {
                 className="w-2/3 h-8 text-[#8A8FB9] px-3"
               />
               <button className="px-3 h-8 rounded-sm bg-[#FB2E86]">
-                Sign Up
+                  <Link to="/signup">Sign Up</Link>
               </button>
             </div>
             <ul className="flex flex-col text-[12px] text-[#8A8FB9] gap-1">

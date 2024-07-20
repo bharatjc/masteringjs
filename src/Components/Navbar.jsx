@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CiMail, CiSearch } from "react-icons/ci";
 import { TbUser } from "react-icons/tb";
 import { LiaPhoneVolumeSolid } from "react-icons/lia";
@@ -9,7 +9,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
-function Navbar() {
+function Navbar({ userData, setUserData }) {
   const [menu, setMenu] = useState(false);
   const [navItems, setNavItems] = useState(false);
 
@@ -27,57 +27,105 @@ function Navbar() {
               <p className="ml-2">(12345)67890</p>
             </div>
           </div>
+
           <div className="hidden md:block">
-            <ul className="flex gap-4 bottom-head">
-              <li>English</li>
-              <li>USD</li>
-              
-              <li className="flex items-center">
-              <Link to= "/login">Login</Link><TbUser className="text-lg ml-1" />
-              </li>
-              <li className="flex items-center">
-                Wishlist <FaRegHeart className="ml-1" />
-              </li>
-              <BsCart2 className="text-lg" />
-            </ul>
+          <ul className="flex items-center gap-3">
+            {userData ? (
+              userData.role === "buyer" ? (
+                <>
+                <li className="text-lg text-green-400">{userData.name} has logged in</li>
+                <li className="h-7 w-7 flex items-center px-[1px] bg-green-300 rounded-2xl">
+                  <img
+                    className="h-[90%] w-[90%] rounded-2xl"
+                    src="./src/assets/buyer.jpg"
+                    alt="buyer image"
+                  />
+                </li>
+                <Link onClick={()=>{
+                  setUserData(null)
+                  localStorage.removeItem("user")
+                }} className="ml-10">Logout</Link>
+                </> 
+              ) : (
+                <>
+                <li className="text-lg text-green-400">{userData.name} has logged in</li>
+                <li className="h-7 w-7 flex items-center px-[1px] bg-stone-400 rounded-2xl">
+                  <img
+                    className="h-[95%] w-[95%] rounded-2xl"
+                    src="./src/assets/seller-icon.svg"
+                    alt="seller image"
+                  />
+                </li>
+                <Link onClick={()=>{
+                  setUserData(null)
+                  localStorage.removeItem("user")
+                }} className="ml-10">Logout</Link>
+                </>
+                
+              )
+            ) : (
+                <ul className="flex gap-4 bottom-head">
+                  <li>English</li>
+                  <li>USD</li>
+                  <li className="flex items-center">
+                    <Link to="/login">Login</Link>
+                    <TbUser className="text-lg ml-1" />
+                  </li>
+                  <li className="flex items-center">
+                    Wishlist <FaRegHeart className="ml-1" />
+                  </li>
+                  <BsCart2 className="text-lg" />
+                </ul>
+            )}
+          </ul>
           </div>
+
           <div className="md:hidden">
-            <button onClick={() => setMenu(!menu)}>
+            {menu && (
+              <div className="w-1/2 bg-slate-100 text-black fixed top-0 right-0 h-full shadow-lg">
+                <ul className="p-4 space-y-4">
+                  <li className="flex justify-between">
+                    <p>English</p>
+                    <button onClick={() => setMenu(false)}>
+                      <IoClose />
+                    </button>
+                  </li>
+                  <li>USD</li>
+                  <li className="flex items-center">
+                    <Link to="/login">
+                      Login <TbUser className="text-lg ml-1" />
+                    </Link>
+                  </li>
+                  <li className="flex items-center">
+                    Wishlist <FaRegHeart className="ml-1" />
+                  </li>
+                  <BsCart2 className="text-lg" />
+                </ul>
+              </div>
+            )}
+          </div>
+
+{
+  userData? <div className="md:hidden">
+  <Link onClick={()=>{
+          setUserData(null)
+          localStorage.removeItem("user")
+        }} className="ml-10">Logout</Link>
+  </div>:""
+}        
+          <div className="md:hidden mt-1 ml-2">
+            <button disabled = {userData} onClick={() => setMenu(!menu)}>
               <GiHamburgerMenu />
             </button>
           </div>
         </nav>
-        <div className="md:hidden">
-          {menu && (
-            <div className="w-1/2 bg-slate-100 text-black fixed top-0 right-0 h-full shadow-lg">
-              <ul className="p-4 space-y-4">
-                <li className="flex justify-between">
-                  <p>English</p>
-                  <button onClick={() => setMenu(false)}>
-                    <IoClose />
-                  </button>
-                </li>
-                <li>USD</li>
-                <li className="flex items-center">
-
-                <Link to="/login">Login <TbUser className="text-lg ml-1" /></Link>  
-
-                </li>
-                <li className="flex items-center">
-                  Wishlist <FaRegHeart className="ml-1" />
-                </li>
-                <BsCart2 className="text-lg" />
-              </ul>
-            </div>
-          )}
-        </div>
       </div>
 
       <div className="bg-white">
         <nav className="flex py-4 justify-between container mx-auto">
           <div className="flex">
             <div className="w-[95px] text-2xl text-[#0D0E43] font-bold mr-8 flex items-center">
-            <Link to="/">Hekto</Link>
+              <Link to="/">Hekto</Link>
               <button onClick={() => setNavItems(!navItems)}>
                 <GiHamburgerMenu className="md:hidden text-lg ml-1" />
               </button>
@@ -95,15 +143,19 @@ function Navbar() {
             <div className="md:hidden">
               {navItems && (
                 <div className="z-50 absolute w-2/5 h-[100vh] bg-slate-100 text-black top-[72px] left-0 shadow-lg">
-                   <ul className="p-4 space-y-4">
-                <li className="flex justify-between"><p>Home</p> <button onClick={() => setNavItems(false)}>
-                <IoClose /></button></li>
-                <li>Pages</li>
-                <li>Products</li>
-                <li>Blog</li>
-                <li>Shop</li>
-                <li>Contact</li>
-              </ul>
+                  <ul className="p-4 space-y-4">
+                    <li className="flex justify-between">
+                      <p>Home</p>{" "}
+                      <button onClick={() => setNavItems(false)}>
+                        <IoClose />
+                      </button>
+                    </li>
+                    <li>Pages</li>
+                    <li>Products</li>
+                    <li>Blog</li>
+                    <li>Shop</li>
+                    <li>Contact</li>
+                  </ul>
                 </div>
               )}
             </div>
@@ -119,8 +171,6 @@ function Navbar() {
           </div>
         </nav>
       </div>
-
-      
     </header>
   );
 }

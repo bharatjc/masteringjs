@@ -1,18 +1,15 @@
-import React from "react";
-import Navbar from "../Components/Navbar";
+import React, { useEffect, useState } from "react";
 import Hero from "../Components/Hero";
 import Products from "../Components/Products";
 import Highlights from "../Components/Highlights";
-import Footer from "../Components/Footer";
 
-function Home() {
+
+function Home({progress, setProgress}) { 
   return (
     <>
-      <Navbar />
       <Hero />
-      <Products />
-      <Highlights/>
-      <Footer />
+      <Products progress={progress} setProgress={setProgress}/>
+      <Highlights progress={progress} setProgress={setProgress}/>
     </>
   );
 }
