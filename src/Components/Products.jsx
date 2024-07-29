@@ -9,9 +9,12 @@ useEffect(()=>{
   setProgress(true)
 axios.get(`https://ecommerce-sagartmg2.vercel.app/api/products/trending`).then((response)=>{
   setProducts(response.data.data)
-  setProgress(false)
+  setTimeout(()=>{
+    setProgress(false)
+  },2000)
 }).catch(err=>{
   console.log("Error", err)
+  setProgress(false)
 })
 },[setProgress])
 
@@ -20,7 +23,7 @@ axios.get(`https://ecommerce-sagartmg2.vercel.app/api/products/trending`).then((
     <div className='pt-[80px] pb-10 flex justify-center flex-wrap gap-5 container'>
       {
       products.map((product, index)=>{
-        return <Card key={index} price = {product.price} code={product.count} name={product.name} image={product.image} progress={progress}/>
+        return <Card key={index} price = {product.price} code={product.count} name={product.name} image={product.image} progress={progress} _id={product._id}/>
       })
      }
     </div>

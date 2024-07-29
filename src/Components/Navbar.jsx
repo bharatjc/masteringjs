@@ -8,8 +8,20 @@ import { IoSearchOutline } from "react-icons/io5";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutReduxUser } from "../redux/slices/userSlice";
 
-function Navbar({ userData, setUserData }) {
+
+
+// function Navbar({ user, setuser }) {
+
+  // let user = null
+  // let setUser = ()=>{}
+    function Navbar(){
+  let reduxUser = useSelector((reduxStore)=>reduxStore.user.value)
+  const cartItems = useSelector((reduxStore)=>{return reduxStore.cart.value})
+  const dispatch = useDispatch()
+
   const [menu, setMenu] = useState(false);
   const [navItems, setNavItems] = useState(false);
 
@@ -30,10 +42,10 @@ function Navbar({ userData, setUserData }) {
 
           <div className="hidden md:block">
           <ul className="flex items-center gap-3">
-            {userData ? (
-              userData.role === "buyer" ? (
+            {reduxUser ?
+              (
                 <>
-                <li className="text-lg text-green-400">{userData.name} has logged in</li>
+                <li className="text-lg text-green-400">{reduxUser.name} has logged in</li>
                 <li className="h-7 w-7 flex items-center px-[1px] bg-green-300 rounded-2xl">
                   <img
                     className="h-[90%] w-[90%] rounded-2xl"
@@ -42,28 +54,15 @@ function Navbar({ userData, setUserData }) {
                   />
                 </li>
                 <Link onClick={()=>{
-                  setUserData(null)
-                  localStorage.removeItem("user")
+                  dispatch(logoutReduxUser())
+                  // setUser(null)
+                  // dispatch(setReduxUser(null))
+                  // localStorage.removeItem("user")
                 }} className="ml-10">Logout</Link>
+                <Link className="flex" to="/cart"><BsCart2 className="text-lg" /><p className="text-[#FB2E86]">({cartItems.length})</p></Link> 
                 </> 
-              ) : (
-                <>
-                <li className="text-lg text-green-400">{userData.name} has logged in</li>
-                <li className="h-7 w-7 flex items-center px-[1px] bg-stone-400 rounded-2xl">
-                  <img
-                    className="h-[95%] w-[95%] rounded-2xl"
-                    src="./src/assets/seller-icon.svg"
-                    alt="seller image"
-                  />
-                </li>
-                <Link onClick={()=>{
-                  setUserData(null)
-                  localStorage.removeItem("user")
-                }} className="ml-10">Logout</Link>
-                </>
-                
               )
-            ) : (
+ : (
                 <ul className="flex gap-4 bottom-head">
                   <li>English</li>
                   <li>USD</li>
@@ -74,7 +73,6 @@ function Navbar({ userData, setUserData }) {
                   <li className="flex items-center">
                     Wishlist <FaRegHeart className="ml-1" />
                   </li>
-                  <BsCart2 className="text-lg" />
                 </ul>
             )}
           </ul>
@@ -99,22 +97,24 @@ function Navbar({ userData, setUserData }) {
                   <li className="flex items-center">
                     Wishlist <FaRegHeart className="ml-1" />
                   </li>
-                  <BsCart2 className="text-lg" />
+                 <Link className="flex" to="/cart"><BsCart2 className="text-lg" />
+                 <p className="text-[#FB2E86]">({cartItems.length})</p></Link> 
                 </ul>
               </div>
             )}
           </div>
 
 {
-  userData? <div className="md:hidden">
+  reduxUser? <div className="md:hidden">
   <Link onClick={()=>{
-          setUserData(null)
-          localStorage.removeItem("user")
+          // setUser(null)
+          dispatch(logoutReduxUser())
+          // localStorage.removeItem("user")
         }} className="ml-10">Logout</Link>
   </div>:""
 }        
           <div className="md:hidden mt-1 ml-2">
-            <button disabled = {userData} onClick={() => setMenu(!menu)}>
+            <button disabled = {reduxUser} onClick={() => setMenu(!menu)}>
               <GiHamburgerMenu />
             </button>
           </div>
@@ -136,8 +136,15 @@ function Navbar({ userData, setUserData }) {
                 <li>Pages</li>
                 <li>Products</li>
                 <li>Blog</li>
-                <li>Shop</li>
                 <li>Contact</li>
+                {
+                  reduxUser &&
+                  <>
+                  <li>Orders</li>
+                  <li>Cart</li>
+                  </>
+                }
+                
               </ul>
             </div>
             <div className="md:hidden">
@@ -152,9 +159,15 @@ function Navbar({ userData, setUserData }) {
                     </li>
                     <li>Pages</li>
                     <li>Products</li>
-                    <li>Blog</li>
                     <li>Shop</li>
                     <li>Contact</li>
+                    {
+                  reduxUser &&
+                  <>
+                  <li>Orders</li>
+                  <li>Cart</li>
+                  </>
+                }
                   </ul>
                 </div>
               )}

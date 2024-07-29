@@ -14,9 +14,12 @@ function Highlights({progress, setProgress}) {
     setProgress(true)
    axios.get(`https://ecommerce-sagartmg2.vercel.app/api/products?per_page=6`).then((response)=>{
     setLatest(response.data.products)
-    setProgress(false)
+    setTimeout(()=>{
+      setProgress(false)
+    },2000)
    }).catch(err=>{
     console.log("Eror", err)
+    setProgress(false)
    })
   },[setProgress])
 

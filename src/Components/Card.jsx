@@ -1,11 +1,14 @@
 import React from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { useDispatch } from "react-redux";
+import { addCartItem } from "../redux/slices/cartSlice";
 
-function Card({progress, image, name, code, price}) {
+function Card({ progress, image, name, code, price, _id }) {
+  const dispatch = useDispatch();
   return (
     <>
-      <div className="w-[219px] h-[350px] shadow-lg rounded-lg bg-cover overflow-hidden pb-3">
+      <div className="w-[219px] h-[360px] shadow-lg rounded-lg bg-cover overflow-hidden pb-5">
         <div className="h-[65%] bg-[#F6F7FB]">
           {progress ? (
             <Skeleton className="h-full" />
@@ -13,7 +16,7 @@ function Card({progress, image, name, code, price}) {
             <img className="h-full w-full" src={image} alt="" />
           )}
         </div>
-        <div>
+        <div className="px-3">
           <h2 className="text-[18px] text-center text-[#FB2E86] font-semibold py-3">
             {progress ? <Skeleton className="w-[70%]" /> : name}
           </h2>
@@ -36,9 +39,17 @@ function Card({progress, image, name, code, price}) {
           {progress ? (
             <Skeleton className="ml-20 w-[30%]" />
           ) : (
-            <p className="text-center text-[#151875] text-[12px] font-medium">
-              Rs. {price}
-            </p>
+            <div className="flex justify-between">
+              <p className="text-center text-[12px] font-medium">Rs. {price}</p>
+              <button
+                className="bg-[#FB2E86] text-sm text-white px-2 py-1 rounded-lg"
+                onClick={() => {
+                  dispatch(addCartItem({ name, price, code, image, _id }));
+                }}
+              >
+                Add items
+              </button>
+            </div>
           )}
         </div>
       </div>

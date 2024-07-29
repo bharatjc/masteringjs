@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Navbar from "../Components/Navbar";
 import { Link, useNavigate } from "react-router-dom";
-import Footer from "../Components/Footer";
 import axios from "axios";
+import { setReduxUser } from "../redux/slices/userSlice";
+import { useDispatch } from "react-redux";
 
-function Login({setUserData}) {
+
+function Login() {
 
 const [user, setUser] = useState({
   email: "",
@@ -15,6 +16,7 @@ const [user, setUser] = useState({
 
 const [isSubmitting, setIsSubmitting] = useState(false)
 const navigate = useNavigate()
+const dispatch = useDispatch()
 
 
 function handleSubmit(e){
@@ -29,8 +31,10 @@ function handleSubmit(e){
       autoClose: 2000,
       hideProgressBar: false,
     })
-    setUserData(res.data.user)
-    localStorage.setItem("user",JSON.stringify(res.data.user))
+    // setUserData(res.data.user)
+    dispatch(setReduxUser(res.data.user))
+    localStorage.setItem("access_token", res.data.access_token)
+    // localStorage.setItem("user",JSON.stringify(res.data.user))
     navigate('/');
   }).catch((err)=>{
       if(err.response.status){
